@@ -3,13 +3,13 @@ import { Room, Player, World } from '../src/index';
 class RoomMaster {
     private static rooms: Room[] = [];
 
-    static start(room: Room): void {
+    static async start(room: Room): Promise<void> {
         room.onRoomLink = (url: string) => {
             console.log(`room link: ${url}`);
             this.rooms.push(room);
         };
 
-        room.start();
+        await room.start();
     }
 
     static broadcast(message: string): void {
@@ -30,7 +30,7 @@ class ExampleRoom extends Room {
     }
 }
 
-const main = () => {
+const main = async () => {
     const roomA = new ExampleRoom({
         roomName: 'ExampleRoomA',
         password: undefined,
@@ -38,7 +38,7 @@ const main = () => {
         public: false,
         geo: World.PG,
         noPlayer: true,
-        token: 'thr1.AAAAAGGL5Zn_geUt699PaQ.IDZouwwoS4I'
+        token: 'thr1.AAAAAGGRBdXN4_hGo4xhfA.VYqMjEsvncs'
     });
 
     const roomB = new ExampleRoom({
@@ -48,12 +48,11 @@ const main = () => {
         public: false,
         geo: World.PG,
         noPlayer: true,
-        token: 'thr1.AAAAAGGL5bCSs9cniHlRgA.Uf6D9DTDjGM'
+        token: 'thr1.AAAAAGGRBZjq68BowL8W3w._immqJuwFjY'
     });
 
-    RoomMaster.start(roomA);
-    RoomMaster.start(roomB);
+    await RoomMaster.start(roomA);
+    await RoomMaster.start(roomB);
 };
 
 main();
-
