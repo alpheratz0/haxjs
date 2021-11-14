@@ -70,13 +70,13 @@ export class Room {
         this.config = config;
     }
 
-    async openNewTab(): Promise<void> {
+    private async openNewTab(): Promise<void> {
         Logger.begin('opening new tab');
         this.page = await BigBrowser.getNewPage();
         Logger.end();
     }
 
-    async exposeFunctions(): Promise<void> {
+    private async exposeFunctions(): Promise<void> {
         Logger.begin('exposing callback functions');
 
         await this.page.exposeFunction('onPlayerJoin', (player: Player) => {
@@ -182,7 +182,7 @@ export class Room {
         Logger.end();
     }
 
-    async createRoom(): Promise<void> {
+    private async createRoom(): Promise<void> {
         Logger.begin('creating room');
         await this.page.goto('https://www.haxball.com/headless', {
             waitUntil: 'networkidle2'
