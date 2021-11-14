@@ -1,4 +1,4 @@
-import { Room, Player, World } from '../src/index';
+import { Room, Player, World } from 'haxjs';
 
 class ExampleRoom extends Room {
     onPlayerJoin(player: Player): void {
@@ -21,6 +21,10 @@ class ExampleRoom extends Room {
             1
         );
     }
+
+    onRoomLink(url: string): void {
+        console.log('\n' + url);
+    }
 }
 
 const main = () => {
@@ -31,7 +35,7 @@ const main = () => {
         public: false,
         geo: World.UY,
         noPlayer: true,
-        token: 'thr1.AAAAAGGMSjiCOltiX2aAEA.dLGyggHZtDg'
+        token: 'thr1.AAAAAGGQ_HvNuZLqigGpEg.vXMHp16ULVE'
     });
 
     room.start();
