@@ -19,7 +19,40 @@ This project is in an early phase and is still under development so it may have 
 
 simply run `npm install haxjs` or `yarn add haxjs`
 
-## example
+## basics
+
+### callbacks
+
+```ts
+import { Room } from 'haxjs';
+
+class SimpleRoom extends Room {
+    onRoomLink(url: string): void {
+        console.log(url);
+    }
+}
+```
+
+### function overriding
+
+```ts
+import { Room } from 'haxjs';
+
+class SimpleRoom extends Room {
+    sendAnnouncement(
+        msg: string,
+        targetId?: number,
+        color?: number,
+        style?: AnnounceStyle,
+        sound?: number
+    ): void {
+        super.sendAnnouncement(msg, targetId, color, style, sound);
+        console.log('sendAnnoucement: ' + msg);
+    }
+}
+```
+
+### basic room
 
 Put this code inside `example-room.ts` and then run `ts-node example-room.ts` to start it, you **must** replace the token field with a valid one:
 
@@ -69,4 +102,3 @@ const main = () => {
 
 main();
 ```
-
