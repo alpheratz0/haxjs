@@ -1,4 +1,4 @@
-import { Room, Player, World } from '../src/index';
+import { Room, Player, World } from 'haxjs';
 
 class RoomMaster {
     private static rooms: Room[] = [];
