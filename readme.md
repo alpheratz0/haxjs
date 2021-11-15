@@ -36,7 +36,7 @@ class SimpleRoom extends Room {
 ### function overriding
 
 ```ts
-import { Room } from 'haxjs';
+import { Room, AnnounceStyle } from 'haxjs';
 
 class SimpleRoom extends Room {
     sendAnnouncement(
