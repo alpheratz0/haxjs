@@ -1,6 +1,6 @@
 import { Room, Scores, Player, TeamID } from 'haxjs';
 
-class RoomBase extends Room {
+class RoomSkeleton extends Room {
     onPlayerJoin(player: Player): void {}
     onPlayerLeave(player: Player): void {}
     onTeamVictory(scores: Scores): void {}
@@ -31,4 +31,3 @@ class RoomBase extends Room {
         byPlayer: Player | null
     ): void {}
 }
-
