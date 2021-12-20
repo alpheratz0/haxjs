@@ -1,22 +1,21 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": ["es2021", "dom"],
-        "module": "commonjs",
-        "rootDir": "src",
-        "declaration": true,
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "strictPropertyInitialization": false,
-        "skipLibCheck": true,
-        "outDir": "dist",
-        "sourceMap": true,
-        "removeComments": true,
-        "noImplicitThis": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true
-    },
-    "exclude": ["node_modules", "dist", "examples"]
+	"compilerOptions": {
+		"target": "es5",
+		"lib": ["es2021", "dom"],
+		"module": "commonjs",
+		"rootDir": "src",
+		"declaration": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"strictPropertyInitialization": false,
+		"skipLibCheck": true,
+		"outDir": "dist",
+		"sourceMap": true,
+		"removeComments": true,
+		"noImplicitThis": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
+	},
+	"exclude": ["node_modules", "dist", "examples"]
 }
-

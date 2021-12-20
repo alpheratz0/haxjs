@@ -1,7 +1,7 @@
 export type AnnounceStyle =
-    | 'normal'
-    | 'bold'
-    | 'italic'
-    | 'small'
-    | 'small-bold'
-    | 'small-italic';
+	| 'normal'
+	| 'bold'
+	| 'italic'
+	| 'small'
+	| 'small-bold'
+	| 'small-italic';
