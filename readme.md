@@ -2,7 +2,7 @@
 
 haxjs is a [npm package](https://www.npmjs.com/haxjs) written in typescript that makes writting of [haxball headless hosts](https://github.com/haxball/haxball-issues/wiki/Headless-Host) a lot easier
 
-![](https://raw.githubusercontent.com/alpheratz0/haxjs/master/assets/runexample.gif)
+![](https://raw.githubusercontent.com/alpheratz0/haxjs/master/assets/clip.gif)
 
 ## why would you use it?
 
