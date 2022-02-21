@@ -7,7 +7,7 @@ export class Logo {
 		if (!this.shown) {
 			this.shown = true;
 			const logo: string = await fs.readFile(
-				path.join(__dirname, '..', 'logo'),
+				path.join(__dirname, '..', 'LOGO'),
 				'utf8'
 			);
 			console.error(logo);
