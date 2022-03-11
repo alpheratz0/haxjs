@@ -325,10 +325,10 @@ export class Room {
 	 * @param targetId The target id of the player to send the message.
 	 * If null or undefined the message is sent to all players.
 	 */
-	sendChat(message: string, targetId?: number | null): void {
+	async sendChat(message: string, targetId?: number | null): Promise<void> {
 		if (targetId == undefined) targetId = null;
 
-		this.page.evaluate(
+		await this.page.evaluate(
 			({ message, targetId }) => {
 				window._room.sendChat(message, targetId);
 			},
@@ -340,8 +340,8 @@ export class Room {
 	 * @param playerId The player id whose admin status will change.
 	 * @param admin The new admin status of the player.
 	 */
-	setPlayerAdmin(playerId: number, admin: boolean): void {
-		this.page.evaluate(
+	async setPlayerAdmin(playerId: number, admin: boolean): Promise<void> {
+		await this.page.evaluate(
 			({ playerId, admin }) => {
 				window._room.setPlayerAdmin(playerId, admin);
 			},
@@ -353,8 +353,8 @@ export class Room {
 	 * @param playerId The player id whose team will change.
 	 * @param team The new team id of the player.
 	 */
-	setPlayerTeam(playerId: number, team: number): void {
-		this.page.evaluate(
+	async setPlayerTeam(playerId: number, team: number): Promise<void> {
+		await this.page.evaluate(
 			({ playerId, team }) => {
 				window._room.setPlayerTeam(playerId, team);
 			},
@@ -367,8 +367,12 @@ export class Room {
 	 * @param reason The reason of the kick.
 	 * @param ban True if the player is being banned from the room otherwise false.
 	 */
-	kickPlayer(playerId: number, reason: string, ban: boolean): void {
-		this.page.evaluate(
+	async kickPlayer(
+		playerId: number,
+		reason: string,
+		ban: boolean
+	): Promise<void> {
+		await this.page.evaluate(
 			({ playerId, reason, ban }) => {
 				window._room.kickPlayer(playerId, reason, ban);
 			},
@@ -380,8 +384,8 @@ export class Room {
 	 * to a player that was previously banned.
 	 * @param playerId The player id that previously has been banned.
 	 */
-	clearBan(playerId: number): void {
-		this.page.evaluate(
+	async clearBan(playerId: number): Promise<void> {
+		await this.page.evaluate(
 			({ playerId }) => {
 				window._room.clearBan(playerId);
 			},
@@ -390,8 +394,8 @@ export class Room {
 	}
 
 	/** Clears the list of banned players. */
-	clearBans(): void {
-		this.page.evaluate(() => {
+	async clearBans(): Promise<void> {
+		await this.page.evaluate(() => {
 			window._room.clearBans();
 		});
 	}
@@ -399,8 +403,8 @@ export class Room {
 	/** Sets the score limit of the room.
 	 * @param limit The score limit.
 	 */
-	setScoreLimit(limit: number): void {
-		this.page.evaluate(
+	async setScoreLimit(limit: number): Promise<void> {
+		await this.page.evaluate(
 			({ limit }) => {
 				window._room.setScoreLimit(limit);
 			},
@@ -412,8 +416,8 @@ export class Room {
 	 * be specified in number of minutes.
 	 * @param limitInMinutes The time limit in minutes.
 	 */
-	setTimeLimit(limitInMinutes: number): void {
-		this.page.evaluate(
+	async setTimeLimit(limitInMinutes: number): Promise<void> {
+		await this.page.evaluate(
 			({ limitInMinutes }) => {
 				window._room.setTimeLimit(limitInMinutes);
 			},
@@ -425,9 +429,9 @@ export class Room {
 	 * file and sets it as the selected stadium.
 	 * @param stadiumFileContents The content of the .hbs stadium file.
 	 */
-	setCustomStadium(stadiumFileContents: string): void {
+	async setCustomStadium(stadiumFileContents: string): Promise<void> {
 		if (Stadium.isValid(stadiumFileContents)) {
-			this.page.evaluate(
+			await this.page.evaluate(
 				({ stadiumFileContents }) => {
 					window._room.setCustomStadium(stadiumFileContents);
 				},
@@ -440,8 +444,8 @@ export class Room {
 	 * The name must match exactly (case sensitive).
 	 * @param stadiumName The default stadium name.
 	 */
-	setDefaultStadium(stadiumName: DefaultStadium): void {
-		this.page.evaluate(
+	async setDefaultStadium(stadiumName: DefaultStadium): Promise<void> {
+		await this.page.evaluate(
 			({ stadiumName }) => {
 				window._room.setDefaultStadium(stadiumName);
 			},
@@ -453,8 +457,8 @@ export class Room {
 	 * not able to change team unless they are moved by an admin.
 	 * @param locked True to prevent players from changing its current team.
 	 */
-	setTeamsLock(locked: boolean): void {
-		this.page.evaluate(
+	async setTeamsLock(locked: boolean): Promise<void> {
+		await this.page.evaluate(
 			({ locked }) => {
 				window._room.setTeamsLock(locked);
 			},
@@ -468,13 +472,13 @@ export class Room {
 	 * @param textColor The color of the avatars.
 	 * @param colors The background colors.
 	 */
-	setTeamColors(
+	async setTeamColors(
 		team: TeamID,
 		angle: number,
 		textColor: number,
 		colors: number[]
-	): void {
-		this.page.evaluate(
+	): Promise<void> {
+		await this.page.evaluate(
 			({ team, angle, textColor, colors }) => {
 				window._room.setTeamColors(team, angle, textColor, colors);
 			},
@@ -484,16 +488,16 @@ export class Room {
 
 	/** Starts the game, if a game is already in progress
 	 * this method does nothing. */
-	startGame(): void {
-		this.page.evaluate(() => {
+	async startGame(): Promise<void> {
+		await this.page.evaluate(() => {
 			window._room.startGame();
 		});
 	}
 
 	/** Stops the game, if no game is in progress
 	 * this method does nothing. */
-	stopGame(): void {
-		this.page.evaluate(() => {
+	async stopGame(): Promise<void> {
+		await this.page.evaluate(() => {
 			window._room.stopGame();
 		});
 	}
@@ -501,8 +505,8 @@ export class Room {
 	/** Sets the pause state of the game. true = paused and false = unpaused.
 	 * @param pauseState True to pause the game, false to unpause it.
 	 */
-	pauseGame(pauseState: boolean): void {
-		this.page.evaluate(
+	async pauseGame(pauseState: boolean): Promise<void> {
+		await this.page.evaluate(
 			({ pauseState }) => {
 				window._room.pauseGame(pauseState);
 			},
@@ -548,8 +552,8 @@ export class Room {
 	}
 
 	/** Starts recording of a haxball replay. */
-	startRecording(): void {
-		this.page.evaluate(() => {
+	async startRecording(): Promise<void> {
+		await this.page.evaluate(() => {
 			window._room.startRecording();
 		});
 	}
@@ -566,8 +570,8 @@ export class Room {
 	 * @param password The new password of the room,
 	 * if null the password will be cleared.
 	 */
-	setPassword(password: string | null): void {
-		this.page.evaluate(
+	async setPassword(password: string | null): Promise<void> {
+		await this.page.evaluate(
 			({ password }) => {
 				window._room.setPassword(password);
 			},
@@ -579,8 +583,8 @@ export class Room {
 	 * @param required True if every player must complete a
 	 * recaptcha before joining the room.
 	 */
-	setRequireRecaptcha(required: boolean): void {
-		this.page.evaluate(
+	async setRequireRecaptcha(required: boolean): Promise<void> {
+		await this.page.evaluate(
 			({ required }) => {
 				window._room.setRequireRecaptcha(required);
 			},
@@ -594,8 +598,11 @@ export class Room {
 	 * @param moveToTop If true players are inserted at the top of the list,
 	 * otherwise they are inserted at the bottom of the list.
 	 */
-	reorderPlayers(playerIdList: number[], moveToTop: boolean): void {
-		this.page.evaluate(
+	async reorderPlayers(
+		playerIdList: number[],
+		moveToTop: boolean
+	): Promise<void> {
+		await this.page.evaluate(
 			({ playerIdList, moveToTop }) => {
 				window._room.reorderPlayers(playerIdList, moveToTop);
 			},
@@ -617,19 +624,19 @@ export class Room {
 	 * If 1 the announcement will produce a normal chat sound.
 	 * If 2 it will produce a notification sound.
 	 */
-	sendAnnouncement(
+	async sendAnnouncement(
 		msg: string,
 		targetId?: number | null,
 		color?: number | null,
 		style?: AnnounceStyle | null,
 		sound?: number | null
-	): void {
+	): Promise<void> {
 		if (targetId == undefined) targetId = null;
 		if (color == undefined) color = null;
 		if (style == undefined) style = null;
 		if (sound == undefined) sound = null;
 
-		this.page.evaluate(
+		await this.page.evaluate(
 			({ msg, targetId, color, style, sound }) => {
 				window._room.sendAnnouncement(
 					msg,
@@ -649,8 +656,12 @@ export class Room {
 	 * @param rate Works like min but lets players save up extra
 	 * kicks to use them later depending on the value of burst.
 	 * @param burst Determines how many extra kicks the player is able to save up. */
-	setKickRateLimit(min: number, rate: number, burst: number): void {
-		this.page.evaluate(
+	async setKickRateLimit(
+		min: number,
+		rate: number,
+		burst: number
+	): Promise<void> {
+		await this.page.evaluate(
 			({ min, rate, burst }) => {
 				window._room.setKickRateLimit(min, rate, burst);
 			},
@@ -661,8 +672,11 @@ export class Room {
 	/** Overrides the avatar of the target player.
      ** If avatar is set to null the override is cleared and
      the player will be able to use his own avatar again. */
-	setPlayerAvatar(playerId: number, avatar: string | null): void {
-		this.page.evaluate(
+	async setPlayerAvatar(
+		playerId: number,
+		avatar: string | null
+	): Promise<void> {
+		await this.page.evaluate(
 			({ playerId, avatar }) => {
 				window._room.setPlayerAvatar(playerId, avatar);
 			},
@@ -673,11 +687,11 @@ export class Room {
 	/** Sets properties of the target disc.
      ** Properties that are null or undefined will not be set and
      therefor will preserve whatever value the disc already had. */
-	setDiscProperties(
+	async setDiscProperties(
 		discIndex: number,
 		properties: Partial<DiscProperties>
-	): void {
-		this.page.evaluate(
+	): Promise<void> {
+		await this.page.evaluate(
 			({ discIndex, properties }) => {
 				window._room.setDiscProperties(discIndex, properties);
 			},
@@ -698,11 +712,11 @@ export class Room {
 
 	/** Same as setDiscProperties but targets the disc
 	 * belonging to a player with the given Id. */
-	setPlayerDiscProperties(
+	async setPlayerDiscProperties(
 		playerId: number,
 		properties: Partial<DiscProperties>
-	): void {
-		this.page.evaluate(
+	): Promise<void> {
+		await this.page.evaluate(
 			({ playerId, properties }) => {
 				window._room.setPlayerDiscProperties(playerId, properties);
 			},
