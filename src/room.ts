@@ -188,7 +188,7 @@ export class Room {
 			waitUntil: 'networkidle2'
 		});
 
-		await this.page.evaluate((serializedConfig) => {
+		await this.page.evaluate((serializedConfig: string) => {
 			window._room = window.HBInit(JSON.parse(serializedConfig));
 		}, JSON.stringify(this.config));
 
@@ -329,7 +329,7 @@ export class Room {
 		if (targetId == undefined) targetId = null;
 
 		await this.page.evaluate(
-			({ message, targetId }) => {
+			({ message, targetId }: any) => {
 				window._room.sendChat(message, targetId);
 			},
 			{ message, targetId }
@@ -342,7 +342,7 @@ export class Room {
 	 */
 	async setPlayerAdmin(playerId: number, admin: boolean): Promise<void> {
 		await this.page.evaluate(
-			({ playerId, admin }) => {
+			({ playerId, admin }: any) => {
 				window._room.setPlayerAdmin(playerId, admin);
 			},
 			{ playerId, admin }
@@ -355,7 +355,7 @@ export class Room {
 	 */
 	async setPlayerTeam(playerId: number, team: number): Promise<void> {
 		await this.page.evaluate(
-			({ playerId, team }) => {
+			({ playerId, team }: any) => {
 				window._room.setPlayerTeam(playerId, team);
 			},
 			{ playerId, team }
@@ -373,7 +373,7 @@ export class Room {
 		ban: boolean
 	): Promise<void> {
 		await this.page.evaluate(
-			({ playerId, reason, ban }) => {
+			({ playerId, reason, ban }: any) => {
 				window._room.kickPlayer(playerId, reason, ban);
 			},
 			{ playerId, reason, ban }
@@ -386,7 +386,7 @@ export class Room {
 	 */
 	async clearBan(playerId: number): Promise<void> {
 		await this.page.evaluate(
-			({ playerId }) => {
+			({ playerId }: any) => {
 				window._room.clearBan(playerId);
 			},
 			{ playerId }
@@ -405,7 +405,7 @@ export class Room {
 	 */
 	async setScoreLimit(limit: number): Promise<void> {
 		await this.page.evaluate(
-			({ limit }) => {
+			({ limit }: any) => {
 				window._room.setScoreLimit(limit);
 			},
 			{ limit }
@@ -418,7 +418,7 @@ export class Room {
 	 */
 	async setTimeLimit(limitInMinutes: number): Promise<void> {
 		await this.page.evaluate(
-			({ limitInMinutes }) => {
+			({ limitInMinutes }: any) => {
 				window._room.setTimeLimit(limitInMinutes);
 			},
 			{ limitInMinutes }
@@ -432,7 +432,7 @@ export class Room {
 	async setCustomStadium(stadiumFileContents: string): Promise<void> {
 		if (Stadium.isValid(stadiumFileContents)) {
 			await this.page.evaluate(
-				({ stadiumFileContents }) => {
+				({ stadiumFileContents }: any) => {
 					window._room.setCustomStadium(stadiumFileContents);
 				},
 				{ stadiumFileContents }
@@ -446,7 +446,7 @@ export class Room {
 	 */
 	async setDefaultStadium(stadiumName: DefaultStadium): Promise<void> {
 		await this.page.evaluate(
-			({ stadiumName }) => {
+			({ stadiumName }: any) => {
 				window._room.setDefaultStadium(stadiumName);
 			},
 			{ stadiumName }
@@ -459,7 +459,7 @@ export class Room {
 	 */
 	async setTeamsLock(locked: boolean): Promise<void> {
 		await this.page.evaluate(
-			({ locked }) => {
+			({ locked }: any) => {
 				window._room.setTeamsLock(locked);
 			},
 			{ locked }
@@ -479,7 +479,7 @@ export class Room {
 		colors: number[]
 	): Promise<void> {
 		await this.page.evaluate(
-			({ team, angle, textColor, colors }) => {
+			({ team, angle, textColor, colors }: any) => {
 				window._room.setTeamColors(team, angle, textColor, colors);
 			},
 			{ team, angle, textColor, colors }
@@ -507,7 +507,7 @@ export class Room {
 	 */
 	async pauseGame(pauseState: boolean): Promise<void> {
 		await this.page.evaluate(
-			({ pauseState }) => {
+			({ pauseState }: any) => {
 				window._room.pauseGame(pauseState);
 			},
 			{ pauseState }
@@ -521,7 +521,7 @@ export class Room {
 	 */
 	async getPlayer(playerId: number): Promise<Player | null> {
 		return await this.page.evaluate(
-			({ playerId }) => {
+			({ playerId }: any) => {
 				return window._room.getPlayer(playerId);
 			},
 			{ playerId }
@@ -572,7 +572,7 @@ export class Room {
 	 */
 	async setPassword(password: string | null): Promise<void> {
 		await this.page.evaluate(
-			({ password }) => {
+			({ password }: any) => {
 				window._room.setPassword(password);
 			},
 			{ password }
@@ -585,7 +585,7 @@ export class Room {
 	 */
 	async setRequireRecaptcha(required: boolean): Promise<void> {
 		await this.page.evaluate(
-			({ required }) => {
+			({ required }: any) => {
 				window._room.setRequireRecaptcha(required);
 			},
 			{ required }
@@ -603,7 +603,7 @@ export class Room {
 		moveToTop: boolean
 	): Promise<void> {
 		await this.page.evaluate(
-			({ playerIdList, moveToTop }) => {
+			({ playerIdList, moveToTop }: any) => {
 				window._room.reorderPlayers(playerIdList, moveToTop);
 			},
 			{ playerIdList, moveToTop }
@@ -637,7 +637,7 @@ export class Room {
 		if (sound == undefined) sound = null;
 
 		await this.page.evaluate(
-			({ msg, targetId, color, style, sound }) => {
+			({ msg, targetId, color, style, sound }: any) => {
 				window._room.sendAnnouncement(
 					msg,
 					targetId,
@@ -662,7 +662,7 @@ export class Room {
 		burst: number
 	): Promise<void> {
 		await this.page.evaluate(
-			({ min, rate, burst }) => {
+			({ min, rate, burst }: any) => {
 				window._room.setKickRateLimit(min, rate, burst);
 			},
 			{ min, rate, burst }
@@ -677,7 +677,7 @@ export class Room {
 		avatar: string | null
 	): Promise<void> {
 		await this.page.evaluate(
-			({ playerId, avatar }) => {
+			({ playerId, avatar }: any) => {
 				window._room.setPlayerAvatar(playerId, avatar);
 			},
 			{ playerId, avatar }
@@ -692,7 +692,7 @@ export class Room {
 		properties: Partial<DiscProperties>
 	): Promise<void> {
 		await this.page.evaluate(
-			({ discIndex, properties }) => {
+			({ discIndex, properties }: any) => {
 				window._room.setDiscProperties(discIndex, properties);
 			},
 			{ discIndex, properties }
@@ -703,7 +703,7 @@ export class Room {
 	 * Returns null if discIndex is out of bounds. */
 	async getDiscProperties(discIndex: number): Promise<DiscProperties | null> {
 		return await this.page.evaluate(
-			({ discIndex }) => {
+			({ discIndex }: any) => {
 				return window._room.getDiscProperties(discIndex);
 			},
 			{ discIndex }
@@ -717,7 +717,7 @@ export class Room {
 		properties: Partial<DiscProperties>
 	): Promise<void> {
 		await this.page.evaluate(
-			({ playerId, properties }) => {
+			({ playerId, properties }: any) => {
 				window._room.setPlayerDiscProperties(playerId, properties);
 			},
 			{ playerId, properties }
@@ -730,7 +730,7 @@ export class Room {
 		playerId: number
 	): Promise<DiscProperties | null> {
 		return await this.page.evaluate(
-			({ playerId }) => {
+			({ playerId }: any) => {
 				return window._room.getPlayerDiscProperties(playerId);
 			},
 			{ playerId }
