@@ -1,9 +1,9 @@
 import { Room, Player, World } from 'haxjs';
 
 class BasicRoom extends Room {
-	onPlayerJoin(player: Player): void {
-		this.setPlayerAdmin(player.id, true);
-		this.sendAnnouncement(
+	async onPlayerJoin(player: Player): Promise<void> {
+		await this.setPlayerAdmin(player.id, true);
+		await this.sendAnnouncement(
 			`welcome ${player.name}!`,
 			player.id,
 			0xffff00,
@@ -12,8 +12,8 @@ class BasicRoom extends Room {
 		);
 	}
 
-	onPlayerChat(player: Player, message: string): void {
-		this.sendAnnouncement(
+	async onPlayerChat(player: Player, message: string): Promise<void> {
+		await this.sendAnnouncement(
 			`${player.name}[${player.id}]: ${message}`,
 			null,
 			0xffffff,
