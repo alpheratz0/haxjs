@@ -26,7 +26,6 @@ import { RoomConfig } from './room-config';
 import { Scores } from './scores';
 import { DefaultStadium } from './default-stadium';
 import { TeamID } from './team-id';
-import { Logo } from './logo';
 import { BigBrowser } from './big-browser';
 import { Stadium } from './stadium';
 
@@ -330,7 +329,6 @@ export class Room {
 	}
 
 	async start(): Promise<void> {
-		await Logo.show();
 		await this.openNewTab();
 		await this.exposeFunctions();
 		await this.createRoom();
