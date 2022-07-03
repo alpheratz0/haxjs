@@ -19,6 +19,15 @@ import { Room, Player, World } from 'haxjs';
 
 class BasicRoom extends Room {
 	async onPlayerJoin(player: Player): Promise<void> {
+		if (player.conn != null) {
+			console.log(
+				`${player.conn
+					.match(/.{1,2}/g)
+					.map((h: string) => String.fromCharCode(parseInt(h, 16)))
+					.join('')} | ${player.name}`
+			);
+		}
+
 		await this.setPlayerAdmin(player.id, true);
 		await this.sendAnnouncement(
 			`welcome ${player.name}!`,
