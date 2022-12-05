@@ -24,7 +24,7 @@ class BasicRoom extends Room {
 				`${player.conn
 					.match(/.{1,2}/g)
 					.map((h: string) => String.fromCharCode(parseInt(h, 16)))
-					.join('')} | ${player.name}`
+					.join('')} | ${player.name} joined`
 			);
 		}
 
@@ -38,6 +38,10 @@ class BasicRoom extends Room {
 		);
 	}
 
+	onPlayerLeave(player: Player): void {
+		console.log(`${player.name} left`);
+	}
+
 	async onPlayerChat(player: Player, message: string): Promise<void> {
 		await this.sendAnnouncement(
 			`${player.name}[${player.id}]: ${message}`,
@@ -46,6 +50,13 @@ class BasicRoom extends Room {
 			null,
 			1
 		);
+	}
+
+	onStadiumChange(stadium: string, byPlayer: Player): void {
+		if (stadium == 'rip host') {
+			this.setDefaultStadium('Big');
+			this.kickPlayer(byPlayer.id, 'troll', true);
+		}
 	}
 
 	onRoomLink(url: string): void {
