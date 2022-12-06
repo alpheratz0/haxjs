@@ -91,8 +91,8 @@ export class World {
 	/* Argentina */
 	static AR: GeoLocation = {
 		code: 'AR',
-		lat: -38.416097,
-		lon: -63.616672
+		lat: -34.603722,
+		lon: -58.381592
 	};
 
 	/* American Samoa */
