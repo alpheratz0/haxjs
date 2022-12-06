@@ -442,20 +442,25 @@ export class Room {
 
 	/** Parses the stadiumFileContents as a .hbs stadium
 	 * file and sets it as the selected stadium.
+	 * Returns false if it fails to set the stadium.
 	 * @param stadiumFileContents The content of the .hbs stadium file.
 	 */
-	async setCustomStadium(stadiumFileContents: string): Promise<void> {
+	async setCustomStadium(stadiumFileContents: string): Promise<boolean> {
 		if (Stadium.isValid(stadiumFileContents)) {
-			await this.page.evaluate(
+			return await this.page.evaluate(
 				({ stadiumFileContents }: any) => {
 					try {
 						window._room.setCustomStadium(stadiumFileContents);
+						return true;
 					} catch (_) {
 						/* invalid map format */
+						return false;
 					}
 				},
 				{ stadiumFileContents }
 			);
+		} else {
+			return false;
 		}
 	}
 
