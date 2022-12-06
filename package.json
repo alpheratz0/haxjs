@@ -1,6 +1,6 @@
 {
 	"name": "haxjs",
-	"version": "0.1.22",
+	"version": "0.1.23",
 	"description": "haxball headless api written in typescript",
 	"author": "alpheratz0 <alpheratz99@protonmail.com>",
 	"main": "dist/index.js",
