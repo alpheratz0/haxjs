@@ -448,7 +448,11 @@ export class Room {
 		if (Stadium.isValid(stadiumFileContents)) {
 			await this.page.evaluate(
 				({ stadiumFileContents }: any) => {
-					window._room.setCustomStadium(stadiumFileContents);
+					try {
+						window._room.setCustomStadium(stadiumFileContents);
+					} catch (_) {
+						/* invalid map format */
+					}
 				},
 				{ stadiumFileContents }
 			);
