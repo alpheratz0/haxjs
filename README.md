@@ -7,6 +7,6 @@ install
 =======
 $ yarn add haxjs
 
-example
-=======
-see *examples* directory for an example
+examples
+========
+see *examples* directory for example rooms
